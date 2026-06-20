@@ -61,7 +61,8 @@ VK_RBUTTON = 0x02
 VK_1 = 0x31
 VK_2 = 0x32
 VK_F8 = 0x77  # phím bật/tắt nhanh
-VK_F9 = 0x78  # phím bật/tắt overlay
+VK_DELETE = 0x2E  # phím bật/tắt overlay (Del)
+VK_F9 = 0x78
 VK_F10 = 0x79  # phím chụp + vẽ overlay các ô phụ kiện (kiểm tra vị trí)
 VK_TAB = 0x09  # phím mở balo -> kích hoạt nhận diện
 VK_SHIFT = 0x10
@@ -142,7 +143,7 @@ class EngineState:
 
     def __init__(self):
         self.lock = threading.Lock()
-        self.enabled = False
+        self.enabled = True
         self.require_ads = True       # chỉ kéo khi giữ chuột phải (ngắm)
         self.hipfire_mult = 0.5       # hệ số khi bắn KHÔNG ngắm (chỉ áp dụng nếu require_ads = False)
         self.active_slot = 0          # 0 hoặc 1
@@ -153,7 +154,7 @@ class EngineState:
         self.vk_slot1 = VK_1
         self.vk_slot2 = VK_2
         self.vk_toggle = VK_F8
-        self.vk_overlay = VK_F9
+        self.vk_overlay = VK_DELETE
         self.vk_boxes = VK_F10
         self.vk_detect = VK_TAB
         # macro CCW — bật trong setting, giữ Shift+W sẽ tự trượt

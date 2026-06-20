@@ -5,7 +5,7 @@
   "vk_slot1": 49,
   "vk_slot2": 50,
   "vk_toggle": 119,
-  "vk_overlay": 120,
+  "vk_overlay": 46,
   "vk_boxes": 121,
   "ccw_enabled": true,
   "ccw_cooldown": 1.0,
@@ -13,16 +13,6 @@
   "auto_draft_icons": true,
   "test_mode": false,
   "slot_config": [
-    {
-      "weapon_id": "famas",
-      "attachments": {
-        "scope": "none",
-        "muzzle": "none",
-        "grip": "none",
-        "stock": "none",
-        "mag": "none"
-      }
-    },
     {
       "weapon_id": "akm",
       "attachments": {
@@ -32,16 +22,323 @@
         "stock": "none",
         "mag": "none"
       }
+    },
+    {
+      "weapon_id": "ace32",
+      "attachments": {
+        "scope": "none",
+        "muzzle": "none",
+        "grip": "none",
+        "stock": "none",
+        "mag": "none"
+      }
     }
   ],
   "weapon_overrides": {
+    "m416": {
+      "rpm": 700.0,
+      "recoil_phases": [
+        22.1,
+        22.1,
+        22.1,
+        22.1
+      ]
+    },
+    "akm": {
+      "rpm": 600.0,
+      "recoil_phases": [
+        31.7,
+        31.7,
+        31.7,
+        31.7
+      ]
+    },
+    "scarl": {
+      "rpm": 650.0,
+      "recoil_phases": [
+        23.4,
+        23.4,
+        23.4,
+        23.4
+      ]
+    },
+    "m16a4": {
+      "rpm": 900.0,
+      "recoil_phases": [
+        19.3,
+        19.3,
+        19.3,
+        19.3
+      ]
+    },
     "m762": {
       "rpm": 700.0,
       "recoil_phases": [
         40.0,
-        50.0,
-        70.0,
-        33.3
+        40.0,
+        40.0,
+        40.0
+      ]
+    },
+    "g36c": {
+      "rpm": 650.0,
+      "recoil_phases": [
+        22.8,
+        22.8,
+        22.8,
+        22.8
+      ]
+    },
+    "aug": {
+      "rpm": 700.0,
+      "recoil_phases": [
+        18.6,
+        18.6,
+        18.6,
+        18.6
+      ]
+    },
+    "qbz": {
+      "rpm": 650.0,
+      "recoil_phases": [
+        22.1,
+        22.1,
+        22.1,
+        22.1
+      ]
+    },
+    "mk47": {
+      "rpm": 600.0,
+      "recoil_phases": [
+        30.3,
+        30.3,
+        30.3,
+        30.3
+      ]
+    },
+    "groza": {
+      "rpm": 700.0,
+      "recoil_phases": [
+        29.0,
+        29.0,
+        29.0,
+        29.0
+      ]
+    },
+    "k2": {
+      "rpm": 670.0,
+      "recoil_phases": [
+        23.4,
+        23.4,
+        23.4,
+        23.4
+      ]
+    },
+    "ace32": {
+      "rpm": 600.0,
+      "recoil_phases": [
+        26.9,
+        26.9,
+        26.9,
+        26.9
+      ]
+    },
+    "famas": {
+      "rpm": 1100.0,
+      "recoil_phases": [
+        20.0,
+        20.0,
+        20.0,
+        20.0
+      ]
+    },
+    "ump45": {
+      "rpm": 600.0,
+      "recoil_phases": [
+        15.2,
+        15.2,
+        15.2,
+        15.2
+      ]
+    },
+    "vector": {
+      "rpm": 1100.0,
+      "recoil_phases": [
+        9.7,
+        9.7,
+        9.7,
+        9.7
+      ]
+    },
+    "tommy": {
+      "rpm": 700.0,
+      "recoil_phases": [
+        15.9,
+        15.9,
+        15.9,
+        15.9
+      ]
+    },
+    "mp5k": {
+      "rpm": 900.0,
+      "recoil_phases": [
+        11.7,
+        11.7,
+        11.7,
+        11.7
+      ]
+    },
+    "pp19": {
+      "rpm": 700.0,
+      "recoil_phases": [
+        12.4,
+        12.4,
+        12.4,
+        12.4
+      ]
+    },
+    "p90": {
+      "rpm": 950.0,
+      "recoil_phases": [
+        11.0,
+        11.0,
+        11.0,
+        11.0
+      ]
+    },
+    "uzi": {
+      "rpm": 1200.0,
+      "recoil_phases": [
+        9.7,
+        9.7,
+        9.7,
+        9.7
+      ]
+    },
+    "js9": {
+      "rpm": 750.0,
+      "recoil_phases": [
+        11.7,
+        11.7,
+        11.7,
+        11.7
+      ]
+    },
+    "m249": {
+      "rpm": 750.0,
+      "recoil_phases": [
+        24.8,
+        24.8,
+        24.8,
+        24.8
+      ]
+    },
+    "dp28": {
+      "rpm": 550.0,
+      "recoil_phases": [
+        26.9,
+        26.9,
+        26.9,
+        26.9
+      ]
+    },
+    "mg3": {
+      "rpm": 990.0,
+      "recoil_phases": [
+        29.0,
+        29.0,
+        29.0,
+        29.0
+      ]
+    },
+    "mini14": {
+      "rpm": 350.0,
+      "recoil_phases": [
+        18.6,
+        18.6,
+        18.6,
+        18.6
+      ]
+    },
+    "sks": {
+      "rpm": 350.0,
+      "recoil_phases": [
+        31.7,
+        31.7,
+        31.7,
+        31.7
+      ]
+    },
+    "slr": {
+      "rpm": 320.0,
+      "recoil_phases": [
+        38.6,
+        38.6,
+        38.6,
+        38.6
+      ]
+    },
+    "qbu": {
+      "rpm": 350.0,
+      "recoil_phases": [
+        22.1,
+        22.1,
+        22.1,
+        22.1
+      ]
+    },
+    "mk12": {
+      "rpm": 400.0,
+      "recoil_phases": [
+        23.4,
+        23.4,
+        23.4,
+        23.4
+      ]
+    },
+    "mk14": {
+      "rpm": 700.0,
+      "recoil_phases": [
+        42.8,
+        42.8,
+        42.8,
+        42.8
+      ]
+    },
+    "vss": {
+      "rpm": 600.0,
+      "recoil_phases": [
+        14.5,
+        14.5,
+        14.5,
+        14.5
+      ]
+    },
+    "dragunov": {
+      "rpm": 400.0,
+      "recoil_phases": [
+        33.1,
+        33.1,
+        33.1,
+        33.1
+      ]
+    },
+    "p18c": {
+      "rpm": 850.0,
+      "recoil_phases": [
+        11.0,
+        11.0,
+        11.0,
+        11.0
+      ]
+    },
+    "skorpion": {
+      "rpm": 850.0,
+      "recoil_phases": [
+        11.7,
+        11.7,
+        11.7,
+        11.7
       ]
     }
   },

@@ -47,7 +47,7 @@ KEY_OPTIONS = [
     {"name": "F3", "vk": 0x72}, {"name": "F4", "vk": 0x73},
     {"name": "F8", "vk": 0x77}, {"name": "F9", "vk": 0x78},
     {"name": "F10", "vk": 0x79}, {"name": "F11", "vk": 0x7A},
-    {"name": "F12", "vk": 0x7B}, {"name": "Insert", "vk": 0x2D},
+    {"name": "F12", "vk": 0x7B},     {"name": "Insert", "vk": 0x2D}, {"name": "Del", "vk": 0x2E},
     {"name": "Home", "vk": 0x24}, {"name": "End", "vk": 0x23},
 ]
 
@@ -366,9 +366,9 @@ class Api:
             self.state.vk_slot1 = 0x31
             self.state.vk_slot2 = 0x32
             self.state.vk_toggle = 0x77
-            self.state.vk_overlay = 0x78
+            self.state.vk_overlay = 0x2E
             self.state.vk_boxes = 0x79
-            self.state.enabled = False
+            self.state.enabled = True
             self.state.auto_detect = False
             self.state.overlay_visible = False
             self.state.ccw_enabled = False
@@ -576,7 +576,7 @@ class Api:
                 self.state.vk_slot1 = int(data.get("vk_slot1", 0x31))
                 self.state.vk_slot2 = int(data.get("vk_slot2", 0x32))
                 self.state.vk_toggle = int(data.get("vk_toggle", 0x77))
-                self.state.vk_overlay = int(data.get("vk_overlay", 0x78))
+                self.state.vk_overlay = int(data.get("vk_overlay", 0x2E))
                 self.state.vk_boxes = int(data.get("vk_boxes", 0x79))
                 self.state.auto_detect = bool(data.get("auto_detect", False))
                 self.state.ccw_enabled = bool(data.get("ccw_enabled", False))
