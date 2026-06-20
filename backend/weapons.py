@@ -54,6 +54,10 @@ WEAPONS = [
     {"id": "mk14",    "name": "Mk14 (Auto)", "type": "DMR", "rpm": 700, "recoil": 42.8},
     {"id": "vss",     "name": "VSS",         "type": "DMR", "rpm": 600, "recoil": 14.5},
     {"id": "dragunov","name": "Dragunov",    "type": "DMR", "rpm": 400, "recoil": 33.1},
+    {"id": "m24",     "name": "M24",         "type": "SR",  "rpm": 60,  "recoil": 35.0},
+    {"id": "awm",     "name": "AWM",         "type": "SR",  "rpm": 60,  "recoil": 45.0},
+    {"id": "win94",   "name": "Win94",       "type": "SR",  "rpm": 56,  "recoil": 28.0},
+    {"id": "lynx_amr","name": "Lynx AMR",    "type": "SR",  "rpm": 45,  "recoil": 52.0},
 
     # --- Pistol (full-auto) ---
     {"id": "p18c",    "name": "P18C",        "type": "PISTOL", "rpm": 850, "recoil": 11.0},
@@ -160,7 +164,7 @@ WEAPON_SLOTS = {
     "qbz":   {"stock": False},
     "groza": {"grip": False, "stock": False},
     "k2":    {"grip": False, "stock": False},
-    "famas": {"muzzle": False, "stock": False},
+    "famas": {"grip": False, "stock": False},
     # --- SMG ---
     "ump45": {"stock": False},
     "tommy": {"stock": False},
@@ -175,6 +179,11 @@ WEAPON_SLOTS = {
     # --- DMR ---
     "mini14": {"grip": False, "stock": False},
     "vss":    {"muzzle": False, "grip": False, "scope": False},
+    # --- SR (bolt) ---
+    "m24":    {"grip": False, "mag": False},
+    "awm":    {"grip": False, "mag": False},
+    "win94":  {"muzzle": False, "grip": False, "stock": False, "mag": False},
+    "lynx_amr":{"muzzle": False, "grip": False, "stock": False, "mag": False},
     # --- Pistol ---
     "p18c":   {"stock": False},
 }
@@ -234,6 +243,9 @@ def allowed_attachments(weapon, category, data=None):
     if WEAPON_SLOTS.get(weapon["id"], {}).get(category) is False:
         return [a for a in items if a["id"] == "none"] or list(items[:1])
     wtype = weapon.get("type")
+    # SR (bolt) dùng chung pool phụ kiện icon với DMR trong PUBG
+    if wtype == "SR":
+        wtype = "DMR"
     restrict = WEAPON_ATTACH_IDS.get(weapon["id"], {}).get(category)
     out = []
     for a in items:

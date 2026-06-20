@@ -404,11 +404,13 @@ class Api:
         slots = [None, None]
         texts = ["", ""]
         atts_out = [None, None]
+        applied = False
         for slot in (0, 1):
             r = result.get(slot, {})
             texts[slot] = r.get("text", "")
             wid = r.get("weapon_id")
             if wid:
+                applied = True
                 slots[slot] = wid
                 # dùng phụ kiện nhận diện được; nếu chưa có thì giữ nguyên đang chọn
                 atts = r.get("attachments") or self.slot_config[slot]["attachments"]
@@ -422,7 +424,7 @@ class Api:
             "inventory_open": True,
             "test_mode": bool(self.detector.debug_image),
         }
-        return True
+        return applied
 
     def detect_now(self):
         """Nhận diện ngay (đồng bộ) — dùng cho nút bấm test."""
@@ -473,7 +475,7 @@ class Api:
         return self.state.auto_detect
 
     def set_auto_draft_icons(self, value):
-        """BẬT/TẮT tự cắt icon chưa nhận diện vào draft/ khi đang chơi."""
+        """Bật/tắt lưu icon chưa nhận diện vào draft/ khi chơi."""
         self.detector.auto_draft = bool(value)
         self._save_config()
         return self.detector.auto_draft

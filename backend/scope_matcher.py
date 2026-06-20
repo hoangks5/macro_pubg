@@ -4,10 +4,9 @@ Nhận diện SCOPE (ô trên thân súng).
 
 Scope nằm trên thân súng 3D -> bị che bởi skin/model, nền đổi theo từng súng.
 Chiến lược:
-  1) Khớp trực tiếp crop game UI (50x50, giữ nền) — ưu tiên biến thể @sks/@aug.
+  1) Khớp trực tiếp crop game UI (50x50) — ưu tiên biên, nhiều tỉ lệ cắt trên.
   2) Dò trượt trong vùng pad (scope lệch vị trí theo súng).
-  3) Khớp phần TRÊN của ô (bỏ ~15% dưới — thân súng hay che).
-Không nên hạ ngưỡng quá thấp; dùng margin giữa #1 và #2 thay vì bỏ qua accuracy.
+  3) Khớp phần TRÊN của ô (bỏ thân súng che dưới) ở vài tỉ lệ — lấy điểm cao nhất.
 """
 
 try:
@@ -19,11 +18,12 @@ from . import match_utils as mu
 
 SCOPE_SCAN_PAD_Y = 28
 SCOPE_SCAN_PAD_X = 12
-SCOPE_TOP_RATIO = 0.85          # chỉ lấy phần trên ô — bớt thân súng che dưới
-SCOPE_SCORE_WEIGHTS = {"edge": 0.50, "silhouette": 0.30, "raw": 0.20}
+# Thử vài tỉ lệ cắt phía trên — 0.85 quá thấp, còn nhiều thân súng gây nhiễu.
+SCOPE_TOP_RATIOS = (0.65, 0.70, 0.85)
+SCOPE_SCORE_WEIGHTS = {"edge": 0.65, "silhouette": 0.25, "raw": 0.10}
 
 DEFAULT_SCOPE_THRESHOLD = 0.52
-SCOPE_MATCH_MARGIN = 0.06
+SCOPE_MATCH_MARGIN = 0.05
 SCOPE_MATCH_FLOOR = 0.38
 
 
@@ -40,7 +40,7 @@ class ScopeMatcher:
         return self.threshold
 
     @staticmethod
-    def _scope_top(gray, ratio=SCOPE_TOP_RATIO):
+    def _scope_top(gray, ratio):
         """Cắt phần trên ô scope — giảm nhiễu thân súng/skin che phía dưới."""
         if gray is None or gray.size == 0:
             return gray
@@ -56,7 +56,7 @@ class ScopeMatcher:
         return h >= 40 and w >= 40
 
     def _score_channels(self, a, b):
-        """Điểm có trọng số — ưu tiên biên/silhouette, ít phụ thuộc màu nền skin."""
+        """Điểm có trọng số — ưu tiên biên, ít phụ thuộc màu nền skin."""
         raw = float(cv2.matchTemplate(a, b, cv2.TM_CCOEFF_NORMED).max())
         ae, be = mu.edge(a), mu.edge(b)
         edg = float(cv2.matchTemplate(ae, be, cv2.TM_CCOEFF_NORMED).max())
@@ -68,51 +68,80 @@ class ScopeMatcher:
             + SCOPE_SCORE_WEIGHTS["silhouette"] * sil
         )
 
-    def _score_direct_box(self, crop_gray, tmpl_gray):
-        """Khớp crop inventory với template cùng kiểu (full frame 50x50)."""
+    def _score_direct_pair(self, crop_gray, tmpl_gray):
+        """Khớp trực tiếp một cặp ảnh — đa kích thước + nhiều tỉ lệ cắt trên."""
         best = -1.0
-        ch, cw = crop_gray.shape[:2]
-        th, tw = tmpl_gray.shape[:2]
         for size in (48, 50, 52):
             a = mu.flatten_background(cv2.resize(crop_gray, (size, size)))
             b = mu.flatten_background(cv2.resize(tmpl_gray, (size, size)))
             best = max(best, self._score_channels(a, b))
-            at = self._scope_top(a)
-            bt = self._scope_top(b)
-            if at.size and bt.size:
-                bt_r = cv2.resize(bt, (at.shape[1], at.shape[0]))
-                best = max(best, self._score_channels(at, bt_r))
+            for ratio in SCOPE_TOP_RATIOS:
+                at = self._scope_top(a, ratio)
+                bt = self._scope_top(b, ratio)
+                if at.size and bt.size and at.shape[0] >= 6 and bt.shape[0] >= 6:
+                    bt_r = cv2.resize(bt, (at.shape[1], at.shape[0]))
+                    best = max(best, self._score_channels(at, bt_r))
+        return round(best, 3)
+
+    def _score_direct_box(self, crop_gray, tmpl_gray):
+        return self._score_direct_pair(crop_gray, tmpl_gray)
+
+    def _score_icon_core(self, crop_gray, tmpl_gray):
+        """Khớp lõi icon — bổ sung khi template là icon cắt sát (không full frame)."""
+        th, tw = tmpl_gray.shape[:2]
+        if th >= 40 and tw >= 40:
+            return 0.0
+        core = mu.prep_icon(crop_gray)
+        best = -1.0
+        for size in (52, 58, 64):
+            t = mu.prep_icon(tmpl_gray, size=size)
+            t = cv2.resize(t, (core.shape[1], core.shape[0]))
+            raw = float(cv2.matchTemplate(core, t, cv2.TM_CCOEFF_NORMED).max())
+            edg = float(cv2.matchTemplate(
+                mu.edge(core), mu.edge(t), cv2.TM_CCOEFF_NORMED).max())
+            sil = float(cv2.matchTemplate(
+                mu.silhouette(core), mu.silhouette(t), cv2.TM_CCOEFF_NORMED).max())
+            s = (
+                SCOPE_SCORE_WEIGHTS["raw"] * raw
+                + SCOPE_SCORE_WEIGHTS["edge"] * edg
+                + SCOPE_SCORE_WEIGHTS["silhouette"] * sil
+            )
+            best = max(best, s)
         return round(best, 3)
 
     def _score_sliding(self, region_gray, tmpl_gray, tw, th):
         """Dò trượt trong vùng pad — scope xê dọc/ngang theo từng súng."""
         g = mu.flatten_background(region_gray)
-        g_e = mu.edge(g)
-        g_s = mu.silhouette(g)
         rh, rw = g.shape[:2]
         if tw < 8 or th < 8 or tw > rw or th > rh:
             return 0.0
         best = -1.0
         t = mu.flatten_background(cv2.resize(tmpl_gray, (tw, th)))
-        t_e, t_s = mu.edge(t), mu.silhouette(t)
         raw = float(cv2.matchTemplate(g, t, cv2.TM_CCOEFF_NORMED).max())
-        edg = float(cv2.matchTemplate(g_e, t_e, cv2.TM_CCOEFF_NORMED).max())
-        sil = float(cv2.matchTemplate(g_s, t_s, cv2.TM_CCOEFF_NORMED).max())
-        best = max(best, raw, edg, sil)
-        gt = self._scope_top(g)
-        tt = self._scope_top(t)
-        if gt.size and tt.size:
-            tt_r = cv2.resize(tt, (gt.shape[1], gt.shape[0]))
-            best = max(best, float(cv2.matchTemplate(
-                gt, tt_r, cv2.TM_CCOEFF_NORMED).max()))
+        edg = float(cv2.matchTemplate(
+            mu.edge(g), mu.edge(t), cv2.TM_CCOEFF_NORMED).max())
+        sil = float(cv2.matchTemplate(
+            mu.silhouette(g), mu.silhouette(t), cv2.TM_CCOEFF_NORMED).max())
+        best = max(
+            best,
+            SCOPE_SCORE_WEIGHTS["raw"] * raw
+            + SCOPE_SCORE_WEIGHTS["edge"] * edg
+            + SCOPE_SCORE_WEIGHTS["silhouette"] * sil,
+        )
+        for ratio in SCOPE_TOP_RATIOS:
+            gt = self._scope_top(g, ratio)
+            tt = self._scope_top(t, ratio)
+            if gt.size and tt.size and gt.shape[0] >= 6 and tt.shape[0] >= 6:
+                tt_r = cv2.resize(tt, (gt.shape[1], gt.shape[0]))
+                best = max(best, self._score_channels(gt, tt_r))
         return round(best, 3)
 
     def _score_template(self, crop_gray, region_gray, tmpl_gray, box_w, box_h):
         """Chọn phương pháp khớp theo loại template."""
+        s = 0.0
         if self._is_fullframe_template(tmpl_gray):
-            s = self._score_direct_box(crop_gray, tmpl_gray)
-        else:
-            s = 0.0
+            s = max(s, self._score_direct_box(crop_gray, tmpl_gray))
+        s = max(s, self._score_icon_core(crop_gray, tmpl_gray))
         for tw, th in ((box_w - 6, box_h - 6), (box_w, box_h), (box_w + 6, box_h + 6)):
             s = max(s, self._score_sliding(region_gray, tmpl_gray, tw, th))
         return round(s, 3)
@@ -131,7 +160,7 @@ class ScopeMatcher:
         if region is None or region.size == 0:
             return []
         crop = img[y:y + h, x:x + w]
-        crop_g = mu.flatten_background(cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY))
+        crop_g = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
         region_g = cv2.cvtColor(region, cv2.COLOR_BGR2GRAY)
 
         per_attid = {}

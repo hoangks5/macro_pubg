@@ -7,17 +7,17 @@
   "vk_toggle": 119,
   "vk_overlay": 46,
   "vk_boxes": 121,
-  "ccw_enabled": true,
+  "ccw_enabled": false,
   "ccw_cooldown": 1.0,
   "auto_detect": true,
   "auto_draft_icons": true,
   "test_mode": false,
   "slot_config": [
     {
-      "weapon_id": "akm",
+      "weapon_id": "lynx_amr",
       "attachments": {
         "scope": "6x",
-        "muzzle": "comp_ar",
+        "muzzle": "none",
         "grip": "none",
         "stock": "none",
         "mag": "none"
@@ -26,9 +26,9 @@
     {
       "weapon_id": "ace32",
       "attachments": {
-        "scope": "none",
-        "muzzle": "none",
-        "grip": "none",
+        "scope": "red_dot",
+        "muzzle": "comp_ar",
+        "grip": "vertical",
         "stock": "none",
         "mag": "none"
       }

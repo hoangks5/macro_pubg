@@ -27,12 +27,38 @@ DEFAULT_THRESHOLDS = {
     "mag": 0.58,
 }
 
-# Icon PUBG giống nhau giữa nhóm AR / DMR — dùng mẫu nhóm khác khi chưa có mẫu riêng.
-# Ví dụ: SKS (DMR) cần supp_sr nhưng icon trông như supp_ar.
+# Họ phụ kiện họng — nhận diện theo LOẠI (comp/flash/supp/brake) trước,
+# không lọc theo súng; map sang attid đúng sau (vision.normalize_muzzle_attid).
+MUZZLE_FAMILIES = {
+    "comp": ("comp_ar", "comp_smg", "comp_sr"),
+    "flash": ("flash_ar", "flash_smg", "flash_sr"),
+    "supp": ("supp_ar", "supp_smg", "supp_sr"),
+    "brake": ("muzzle_brake_ar",),
+}
+MUZZLE_ATTID_TO_FAMILY = {
+    attid: fam
+    for fam, ids in MUZZLE_FAMILIES.items()
+    for attid in ids
+}
+# attid đại diện khi trả kết quả theo họ (trước khi map theo loại súng)
+MUZZLE_FAMILY_CANONICAL = {
+    "comp": "comp_ar",
+    "flash": "flash_ar",
+    "supp": "supp_ar",
+    "brake": "muzzle_brake_ar",
+}
+
+# Icon PUBG giống nhau giữa nhóm AR / DMR — gom thêm mẫu cùng họ khi chấm điểm.
 MUZZLE_TEMPLATE_ALIASES = {
-    "supp_sr": ["supp_ar"],
-    "comp_sr": ["comp_ar"],
-    "flash_sr": ["flash_ar"],
+    "supp_sr": ["supp_ar", "supp_smg"],
+    "supp_ar": ["supp_sr", "supp_smg"],
+    "supp_smg": ["supp_ar", "supp_sr"],
+    "comp_sr": ["comp_ar", "comp_smg"],
+    "comp_ar": ["comp_sr", "comp_smg"],
+    "comp_smg": ["comp_ar", "comp_sr"],
+    "flash_sr": ["flash_ar", "flash_smg"],
+    "flash_ar": ["flash_sr", "flash_smg"],
+    "flash_smg": ["flash_ar", "flash_sr"],
 }
 
 
@@ -113,7 +139,35 @@ class AttachMatcher:
             out.extend(cat_tmpls.get(alias, []))
         return out
 
-    def match_ranked(self, crop, category, allowed_ids=None):
+    def _templates_for_muzzle_family(self, family):
+        """Gom mọi template thuộc cùng họ họng (comp/flash/supp/brake)."""
+        cat_tmpls = self.templates.get("muzzle", {})
+        seen = set()
+        out = []
+        for attid in MUZZLE_FAMILIES.get(family, ()):
+            for tmpl in self._templates_for_attid("muzzle", attid):
+                key = tmpl.tobytes()
+                if key not in seen:
+                    seen.add(key)
+                    out.append(tmpl)
+        return out
+
+    def _match_muzzle_by_family(self, core, g):
+        """Chấm điểm theo HỌ phụ kiện — không lọc theo loại súng."""
+        ranked = []
+        for fam in MUZZLE_FAMILIES:
+            tmpls = self._templates_for_muzzle_family(fam)
+            if not tmpls:
+                continue
+            best_s = 0.0
+            for tmpl in tmpls:
+                best_s = max(best_s, self._score_template(core, tmpl, g))
+            if best_s > 0:
+                ranked.append((MUZZLE_FAMILY_CANONICAL[fam], best_s))
+        ranked.sort(key=lambda x: x[1], reverse=True)
+        return ranked
+
+    def match_ranked(self, crop, category, allowed_ids=None, group_muzzle_families=False):
         """Trả [(attid, score), ...] giảm dần — CHỈ trong 1 category."""
         if cv2 is None or crop is None or crop.size == 0 or not category:
             return []
@@ -121,6 +175,8 @@ class AttachMatcher:
         if mu.is_empty_slot(g):
             return []
         core = mu.prep_icon(g)
+        if category == "muzzle" and group_muzzle_families:
+            return self._match_muzzle_by_family(core, g)
         ranked = []
         candidates = self.templates.get(category, {})
         if allowed_ids is not None:
@@ -139,12 +195,14 @@ class AttachMatcher:
         ranked.sort(key=lambda x: x[1], reverse=True)
         return ranked
 
-    def match(self, crop, category, allowed_ids=None, apply_threshold=True):
+    def match(self, crop, category, allowed_ids=None, apply_threshold=True,
+              group_muzzle_families=False):
         """
         Trả (category, attid, score).
         category luôn là category của ô (không đoán chéo loại khác).
         """
-        ranked = self.match_ranked(crop, category, allowed_ids)
+        ranked = self.match_ranked(
+            crop, category, allowed_ids, group_muzzle_families=group_muzzle_families)
         if not ranked:
             return category, None, 0.0
         attid, score = ranked[0]
