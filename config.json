@@ -1,0 +1,122 @@
+{
+  "sensitivity": 1.0,
+  "require_ads": true,
+  "hipfire_mult": 0.5,
+  "vk_slot1": 49,
+  "vk_slot2": 50,
+  "vk_toggle": 119,
+  "vk_overlay": 120,
+  "vk_boxes": 121,
+  "ccw_enabled": true,
+  "ccw_cooldown": 1.0,
+  "auto_detect": true,
+  "auto_draft_icons": true,
+  "test_mode": false,
+  "slot_config": [
+    {
+      "weapon_id": "famas",
+      "attachments": {
+        "scope": "none",
+        "muzzle": "none",
+        "grip": "none",
+        "stock": "none",
+        "mag": "none"
+      }
+    },
+    {
+      "weapon_id": "akm",
+      "attachments": {
+        "scope": "6x",
+        "muzzle": "comp_ar",
+        "grip": "none",
+        "stock": "none",
+        "mag": "none"
+      }
+    }
+  ],
+  "weapon_overrides": {
+    "m762": {
+      "rpm": 700.0,
+      "recoil_phases": [
+        40.0,
+        50.0,
+        70.0,
+        33.3
+      ]
+    }
+  },
+  "attachment_overrides": {
+    "scope:2x": {
+      "vert": 1.0
+    }
+  },
+  "match_thresholds": {},
+  "regions": {
+    "slot1_name": [
+      1366,
+      90,
+      222,
+      42
+    ],
+    "slot2_name": [
+      1365,
+      315,
+      221,
+      41
+    ]
+  },
+  "attach_slots": {
+    "0": [
+      [
+        1605,
+        114,
+        50,
+        50
+      ],
+      [
+        1334,
+        235,
+        50,
+        50
+      ],
+      [
+        1436,
+        237,
+        50,
+        50
+      ],
+      [
+        1756,
+        237,
+        50,
+        50
+      ]
+    ],
+    "1": [
+      [
+        1605,
+        340,
+        50,
+        50
+      ],
+      [
+        1334,
+        463,
+        50,
+        50
+      ],
+      [
+        1436,
+        462,
+        50,
+        50
+      ],
+      [
+        1756,
+        461,
+        50,
+        50
+      ]
+    ]
+  }
+}

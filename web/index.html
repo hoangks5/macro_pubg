@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VVIP PUBG</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="cyber-grid" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <!-- hạt neon rơi (anime × hack) -->
+  <div class="petals" id="petals"></div>
+
+  <!-- mascot waifu góc phải -->
+  <svg class="mascot-fixed" viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <linearGradient id="hairG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffc0e2"/><stop offset="1" stop-color="#ff6fb3"/>
+      </linearGradient>
+      <linearGradient id="eyeG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#a7ecff"/><stop offset="1" stop-color="#7b5bff"/>
+      </linearGradient>
+      <linearGradient id="bodyG" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#a87bff"/><stop offset="1" stop-color="#6f4bd6"/>
+      </linearGradient>
+      <radialGradient id="cupG" cx="0.4" cy="0.4" r="0.6">
+        <stop offset="0" stop-color="#9ff4ff"/><stop offset="1" stop-color="#3aa0ff"/>
+      </radialGradient>
+    </defs>
+    <!-- hoodie / thân -->
+    <path d="M55 300 C55 232 70 196 100 196 C130 196 145 232 145 300 Z" fill="url(#bodyG)"/>
+    <path d="M100 196 C84 210 116 210 100 196" fill="#5b3fb0"/>
+    <ellipse cx="100" cy="210" rx="24" ry="10" fill="#ffe7d6"/>
+    <!-- tóc đuôi -->
+    <path d="M52 110 C8 128 8 205 50 205 C72 205 70 150 70 138 Z" fill="url(#hairG)"/>
+    <path d="M148 110 C192 128 192 205 150 205 C128 205 130 150 130 138 Z" fill="url(#hairG)"/>
+    <circle cx="50" cy="132" r="9" fill="#ff478f"/><circle cx="150" cy="132" r="9" fill="#ff478f"/>
+    <!-- tóc sau -->
+    <ellipse cx="100" cy="106" rx="70" ry="68" fill="url(#hairG)"/>
+    <!-- mặt -->
+    <ellipse cx="100" cy="116" rx="53" ry="51" fill="#ffe7d6"/>
+    <!-- mái -->
+    <path d="M47 108 C45 60 155 60 153 108 C151 92 132 86 118 99 C110 84 90 84 82 99 C68 86 49 92 47 108 Z" fill="url(#hairG)"/>
+    <!-- mắt -->
+    <ellipse cx="78" cy="120" rx="13" ry="17" fill="#fff"/>
+    <ellipse cx="78" cy="121" rx="11" ry="15" fill="url(#eyeG)"/>
+    <circle cx="74" cy="116" r="4" fill="#fff"/><circle cx="81" cy="126" r="2.5" fill="#fff" opacity=".85"/>
+    <ellipse cx="122" cy="120" rx="13" ry="17" fill="#fff"/>
+    <ellipse cx="122" cy="121" rx="11" ry="15" fill="url(#eyeG)"/>
+    <circle cx="118" cy="116" r="4" fill="#fff"/><circle cx="125" cy="126" r="2.5" fill="#fff" opacity=".85"/>
+    <path d="M65 105 q13 -8 26 0" stroke="#c25a96" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M109 105 q13 -8 26 0" stroke="#c25a96" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="63" cy="136" rx="9" ry="5" fill="#ff9ec4" opacity=".7"/>
+    <ellipse cx="137" cy="136" rx="9" ry="5" fill="#ff9ec4" opacity=".7"/>
+    <path d="M92 140 q8 8 16 0" stroke="#c25a96" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- tai nghe gamer -->
+    <path d="M38 108 C38 42 162 42 162 108" stroke="#b388ff" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <circle cx="38" cy="118" r="16" fill="url(#cupG)" stroke="#b388ff" stroke-width="4"/>
+    <circle cx="162" cy="118" r="16" fill="url(#cupG)" stroke="#b388ff" stroke-width="4"/>
+    <text x="118" y="80" font-size="20" fill="#fff" opacity=".9">✦</text>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand">
+      <svg class="chibi" viewBox="0 0 200 175" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M52 108 C8 126 8 200 50 200 C72 200 70 148 70 136 Z" fill="url(#hairG)"/>
+        <path d="M148 108 C192 126 192 200 150 200 C128 200 130 148 130 136 Z" fill="url(#hairG)"/>
+        <ellipse cx="100" cy="104" rx="70" ry="66" fill="url(#hairG)"/>
+        <ellipse cx="100" cy="114" rx="53" ry="50" fill="#ffe7d6"/>
+        <path d="M47 106 C45 58 155 58 153 106 C151 90 132 84 118 97 C110 82 90 82 82 97 C68 84 49 90 47 106 Z" fill="url(#hairG)"/>
+        <ellipse cx="78" cy="118" rx="12" ry="16" fill="#fff"/><ellipse cx="78" cy="119" rx="10" ry="14" fill="url(#eyeG)"/><circle cx="74" cy="114" r="3.6" fill="#fff"/>
+        <ellipse cx="122" cy="118" rx="12" ry="16" fill="#fff"/><ellipse cx="122" cy="119" rx="10" ry="14" fill="url(#eyeG)"/><circle cx="118" cy="114" r="3.6" fill="#fff"/>
+        <ellipse cx="63" cy="134" rx="8" ry="4.5" fill="#ff9ec4" opacity=".7"/><ellipse cx="137" cy="134" rx="8" ry="4.5" fill="#ff9ec4" opacity=".7"/>
+        <path d="M92 138 q8 7 16 0" stroke="#c25a96" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M38 106 C38 42 162 42 162 106" stroke="#b388ff" stroke-width="8" fill="none" stroke-linecap="round"/>
+        <circle cx="38" cy="116" r="14" fill="url(#cupG)" stroke="#b388ff" stroke-width="4"/>
+        <circle cx="162" cy="116" r="14" fill="url(#cupG)" stroke="#b388ff" stroke-width="4"/>
+      </svg>
+      <div>
+        <h1>VVIP PUBG</h1>
+        <p class="sub">// ANTI-RECOIL v2.0 ⚡ <span class="by">by hoangks5</span></p>
+      </div>
+    </div>
+    <div class="master">
+      <span id="statusDot" class="dot off"></span>
+      <span id="statusText">TẮT</span>
+      <label class="switch">
+        <input type="checkbox" id="masterToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="info">🖥️ Thông tin máy</button>
+    <button class="tab" data-tab="weapons">🔫 Súng &amp; Phụ kiện</button>
+    <button class="tab" data-tab="settings">⚙️ Cài đặt</button>
+  </nav>
+
+  <main>
+    <!-- ===================== TAB 1: INFO ===================== -->
+    <section id="tab-info" class="tab-content active">
+      <div class="live-row">
+        <div class="meter">
+          <div class="meter-head"><span>CPU</span><span id="cpuPct">0%</span></div>
+          <div class="bar"><div id="cpuBar" class="bar-fill cpu"></div></div>
+        </div>
+        <div class="meter">
+          <div class="meter-head"><span>RAM</span><span id="ramPct">0%</span></div>
+          <div class="bar"><div id="ramBar" class="bar-fill ram"></div></div>
+          <div class="meter-sub" id="ramText">—</div>
+        </div>
+      </div>
+      <div id="infoGrid" class="grid"></div>
+    </section>
+
+    <!-- ===================== TAB 2: WEAPONS ===================== -->
+    <section id="tab-weapons" class="tab-content">
+      <div class="controls">
+        <div class="ctrl-block">
+          <label>Độ nhạy (sensitivity) <b id="sensVal">1.00</b></label>
+          <input type="range" id="sens" min="0.1" max="6" step="0.05" value="1">
+          <small>Tăng/giảm để khớp DPI &amp; in-game sens của bạn.</small>
+        </div>
+        <div class="ctrl-block hint">
+          Cấu hình phím nóng, chế độ ngắm &amp; lưu cài đặt ở tab <b>⚙️ Cài đặt</b>.
+        </div>
+      </div>
+
+      <div class="slots">
+        <div class="slot" data-slot="0">
+          <div class="slot-head">
+            <span class="slot-tag">Ô SÚNG 1 <kbd>1</kbd></span>
+            <span class="active-badge">ĐANG DÙNG</span>
+          </div>
+          <div class="field">
+            <label>Súng</label>
+            <select class="weapon-sel"></select>
+          </div>
+          <div class="att-grid">
+            <div class="field"><label>Scope</label><select class="att-sel" data-cat="scope"></select></div>
+            <div class="field"><label>Họng súng</label><select class="att-sel" data-cat="muzzle"></select></div>
+            <div class="field"><label>Tay cầm</label><select class="att-sel" data-cat="grip"></select></div>
+            <div class="field"><label>Báng súng</label><select class="att-sel" data-cat="stock"></select></div>
+            <div class="field"><label>Băng đạn</label><select class="att-sel" data-cat="mag"></select></div>
+          </div>
+          <div class="profile"></div>
+        </div>
+
+        <div class="slot" data-slot="1">
+          <div class="slot-head">
+            <span class="slot-tag">Ô SÚNG 2 <kbd>2</kbd></span>
+            <span class="active-badge">ĐANG DÙNG</span>
+          </div>
+          <div class="field">
+            <label>Súng</label>
+            <select class="weapon-sel"></select>
+          </div>
+          <div class="att-grid">
+            <div class="field"><label>Scope</label><select class="att-sel" data-cat="scope"></select></div>
+            <div class="field"><label>Họng súng</label><select class="att-sel" data-cat="muzzle"></select></div>
+            <div class="field"><label>Tay cầm</label><select class="att-sel" data-cat="grip"></select></div>
+            <div class="field"><label>Báng súng</label><select class="att-sel" data-cat="stock"></select></div>
+            <div class="field"><label>Băng đạn</label><select class="att-sel" data-cat="mag"></select></div>
+          </div>
+          <div class="profile"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== TAB 3: SETTINGS ===================== -->
+    <section id="tab-settings" class="tab-content">
+      <div class="set-card">
+        <h2>🎮 Chế độ bắn</h2>
+        <p class="muted">🖱️ <b>Chuột TRÁI = bắn</b> (luôn cần giữ để macro kéo). Chuột PHẢI = ngắm (ADS).</p>
+        <label class="check big">
+          <input type="checkbox" id="adsChk" checked>
+          <span>Chỉ kéo khi ngắm (giữ chuột phải / ADS)</span>
+        </label>
+        <div class="ctrl-block">
+          <label>Hệ số bắn không ngắm (hipfire) <b id="hipVal">0.50</b></label>
+          <input type="range" id="hip" min="0" max="1" step="0.05" value="0.5">
+          <small>Khi tắt "chỉ kéo khi ngắm", lực kéo lúc bắn không ngắm = hệ số này × lực gốc.</small>
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h2>⌨️ Phím nóng</h2>
+        <div class="key-grid">
+          <div class="field"><label>Chọn ô súng 1</label><select id="keySlot1"></select></div>
+          <div class="field"><label>Chọn ô súng 2</label><select id="keySlot2"></select></div>
+          <div class="field"><label>Bật / tắt nhanh</label><select id="keyToggle"></select></div>
+          <div class="field"><label>Bật / tắt Overlay</label><select id="keyOverlay"></select></div>
+        </div>
+        <small class="muted">Giữ <b>chuột trái</b> để bắn. Engine tự kéo theo ô súng đang chọn.</small>
+      </div>
+
+      <div class="set-card">
+        <h2>🏃 Macro CCW (trượt khi chạy)</h2>
+        <p class="muted">Bật CCW, bấm <b>Shift trước rồi W</b> (giữ cả hai) đủ thời gian nghỉ → tự trượt. <b>W trước Shift</b> sẽ không kích hoạt CCW.</p>
+        <label class="check big">
+          <input type="checkbox" id="ccwChk">
+          <span>Bật macro CCW</span>
+        </label>
+        <div class="ctrl-block">
+          <label>Thời gian nghỉ giữa mỗi lần trượt <b id="ccwCdVal">2.0</b>s</label>
+          <input type="range" id="ccwCd" min="0.5" max="15" step="0.5" value="2">
+          <small>Phải <b>giữ cả Shift + W</b> đủ thời gian này mới trượt (mặc định 2 giây).</small>
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h2>🖥️ Overlay trong game</h2>
+        <p class="muted">Hiện một <b>thanh ngang ở đáy màn hình</b> hiển thị súng + phụ kiện đang dùng, để xem trực tiếp khi chơi mà không cần Alt-Tab. Bấm phím overlay (mặc định <kbd>F9</kbd>) để bật/tắt nhanh.</p>
+        <div class="btn-row">
+          <button class="btn primary" id="overlayBtn">🖥️ Bật / tắt Overlay</button>
+        </div>
+        <small class="muted">Hoạt động ở chế độ game <b>Borderless / Windowed</b>. Overlay xuyên chuột (click-through) nên không cản thao tác trong game.</small>
+      </div>
+
+      <div class="set-card">
+        <h2>🔍 Tự động nhận diện súng</h2>
+        <p class="muted">Bấm <kbd>Tab</kbd> (mở balo) → app chụp màn hình, OCR đọc tên súng và tự điền vào Ô1/Ô2.</p>
+        <label class="check big">
+          <input type="checkbox" id="autoChk">
+          <span>Bật Auto-detect (bấm <kbd>Tab</kbd> khi mở balo)</span>
+        </label>
+        <label class="check big">
+          <input type="checkbox" id="testChk">
+          <span>🧪 Chế độ TEST — đọc từ <code>shot.png</code> thay vì màn hình</span>
+        </label>
+        <div class="btn-row">
+          <button class="btn primary" id="detectBtn">🔍 Nhận diện ngay</button>
+        </div>
+        <div id="detectMsg" class="save-msg"></div>
+      </div>
+
+      <div class="set-card">
+        <h2>🔫 Chỉ số giật theo giai đoạn băng đạn</h2>
+        <p class="muted">Mỗi súng có lực kéo riêng cho từng đoạn băng (px/viên). Càng về cuối băng giật càng mạnh. Tự lưu.</p>
+        <div class="table-wrap">
+          <table class="edit-table">
+            <thead><tr>
+              <th>Súng</th><th>Loại</th><th>RPM</th>
+              <th>Viên 1-10</th><th>11-20</th><th>21-30</th><th>30+</th>
+            </tr></thead>
+            <tbody id="weaponTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h2>🔧 Hệ số phụ kiện</h2>
+        <p class="muted">Hệ số nhân giật dọc (1.00 = không đổi, &lt;1 = giảm giật nhiều hơn).</p>
+        <div class="table-wrap">
+          <table class="edit-table">
+            <thead><tr><th>Nhóm</th><th>Phụ kiện</th><th>Hệ số dọc</th><th>Ghi chú</th></tr></thead>
+            <tbody id="attachTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h2>💾 Cấu hình</h2>
+        <p class="muted">Mọi thay đổi được lưu tự động vào <code>config.json</code>. Bạn cũng có thể lưu/khôi phục thủ công:</p>
+        <div class="btn-row">
+          <button class="btn primary" id="saveBtn">💾 Lưu ngay</button>
+          <button class="btn danger" id="resetBtn">↺ Khôi phục mặc định</button>
+        </div>
+        <div id="saveMsg" class="save-msg"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>⚠️ Macro vi phạm ToS của PUBG — dùng có thể bị khoá tài khoản. Tự chịu rủi ro.</span>
+    <span class="credit">⚡ VVIP by hoangks5 <span class="heart">♥</span></span>
+  </footer>
+
+  <script>
+    // hạt neon rơi — sakura × cyber
+    (function () {
+      const box = document.getElementById('petals');
+      if (!box) return;
+      const kinds = ['neon-a', 'neon-b', 'neon-c'];
+      const N = 20;
+      for (let i = 0; i < N; i++) {
+        const p = document.createElement('span');
+        const kind = kinds[i % kinds.length];
+        p.className = 'petal ' + kind;
+        const size = 6 + Math.random() * 12;
+        p.style.left = (Math.random() * 100) + 'vw';
+        p.style.width = size + 'px';
+        p.style.height = (kind === 'neon-b' ? size : size * 0.85) + 'px';
+        p.style.animationDuration = (6 + Math.random() * 9) + 's';
+        p.style.animationDelay = (-Math.random() * 14) + 's';
+        box.appendChild(p);
+      }
+    })();
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
