@@ -228,7 +228,7 @@ class Overlay(threading.Thread):
     @staticmethod
     def _is_scope_chip(a):
         s = a.lower()
-        return ("dot" in s) or ("holo" in s) or ("scope" in s) or \
+        return ("dot" in s) or ("holo" in s) or ("hybrid" in s) or ("scope" in s) or \
                ("x" in s and a[:1].isdigit())
 
     def _chip_label(self, a):

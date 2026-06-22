@@ -14,9 +14,9 @@
   "test_mode": false,
   "slot_config": [
     {
-      "weapon_id": "lynx_amr",
+      "weapon_id": "awm",
       "attachments": {
-        "scope": "6x",
+        "scope": "4x",
         "muzzle": "none",
         "grip": "none",
         "stock": "none",
@@ -24,7 +24,7 @@
       }
     },
     {
-      "weapon_id": "ace32",
+      "weapon_id": "aug",
       "attachments": {
         "scope": "red_dot",
         "muzzle": "comp_ar",

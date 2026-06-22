@@ -96,6 +96,7 @@ ATTACHMENTS = {
         {"id": "none",    "name": "— Không —",  "vert": 1.00, "fits": "ALL", "desc": ""},
         {"id": "red_dot", "name": "Red Dot",    "vert": 1.00, "fits": ["AR", "SMG", "DMR", "LMG"], "desc": "Ngắm điểm đỏ (1x)"},
         {"id": "holo",    "name": "Holographic", "vert": 1.00, "fits": ["AR", "SMG", "DMR", "LMG"], "desc": "Ngắm holo (1x)"},
+        {"id": "hybrid",  "name": "Hybrid Sight","vert": 1.00, "fits": ["AR", "SMG", "DMR", "LMG"], "desc": "Ngắm lai / canted (1x)"},
         {"id": "2x",      "name": "2x Scope",   "vert": 2.00, "fits": ["AR", "SMG", "DMR", "LMG"], "desc": "Phóng đại 2x"},
         {"id": "3x",      "name": "3x Scope",   "vert": 3.00, "fits": ["AR", "SMG", "DMR", "LMG"], "desc": "Phóng đại 3x"},
         {"id": "4x",      "name": "4x Scope",   "vert": 4.00, "fits": ["AR", "SMG", "DMR", "LMG"], "desc": "Phóng đại 4x"},
@@ -133,6 +134,7 @@ ATTACHMENTS = {
     "stock": [
         {"id": "none",        "name": "— Không —",      "vert": 1.00, "fits": "ALL",          "desc": ""},
         {"id": "tactical",    "name": "Tactical Stock", "vert": 0.88, "fits": ["AR", "SMG"],  "desc": "Giảm giật, hồi nhanh"},
+        {"id": "heavy",       "name": "Heavy Stock",    "vert": 0.84, "fits": ["AR"],        "desc": "Báng nặng (ACE32)"},
         {"id": "cheek",       "name": "Cheek Pad",      "vert": 0.92, "fits": ["DMR"],        "desc": "Giảm giật dọc khi ngắm"},
         {"id": "bullet_loops","name": "Bullet Loops",   "vert": 1.00, "fits": ["DMR"],        "desc": "Nạp đạn nhanh (DMR)"},
         {"id": "uzi_stock",   "name": "Stock (Micro UZI)","vert": 0.90, "fits": ["SMG"],      "desc": "Báng cho Micro UZI"},
@@ -178,6 +180,7 @@ WEAPON_SLOTS = {
     "mg3":   {"muzzle": False, "grip": False, "stock": False, "mag": False},
     # --- DMR ---
     "mini14": {"grip": False, "stock": False},
+    "dragunov": {"grip": False},
     "vss":    {"muzzle": False, "grip": False, "scope": False},
     # --- SR (bolt) ---
     "m24":    {"grip": False, "mag": False},
@@ -190,6 +193,7 @@ WEAPON_SLOTS = {
 
 # Giới hạn attid theo súng (ngoài lọc fits theo loại AR/SMG/DMR).
 WEAPON_ATTACH_IDS = {
+    "ace32":    {"stock": ["tactical", "heavy"]},
     "uzi":      {"stock": ["uzi_stock"]},
     "skorpion": {"stock": ["uzi_stock"]},
 }

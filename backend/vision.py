@@ -143,6 +143,7 @@ NAME_TO_ATTID = {
     "scope": {
         "red dot": "red_dot", "red dot sight": "red_dot",
         "holo": "holo", "holographic": "holo",
+        "hybrid": "hybrid", "hybrid sight": "hybrid", "canted sight": "hybrid",
         "2x": "2x", "3x": "3x", "4x": "4x", "6x": "6x", "8x": "8x", "15x": "15x",
     },
     "muzzle": {
@@ -165,7 +166,8 @@ NAME_TO_ATTID = {
         "laser sight": "laser",
     },
     "stock": {
-        "tactical stock": "tactical", "cheek pad": "cheek",
+        "tactical stock": "tactical", "heavy stock": "heavy",
+        "cheek pad": "cheek",
         "bullet loops": "bullet_loops",
         "stock for micro uzi": "uzi_stock", "stock micro uzi": "uzi_stock",
     },
